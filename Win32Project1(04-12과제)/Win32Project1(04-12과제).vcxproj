@@ -18,6 +18,28 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="API3D.cpp" />
+    <ClCompile Include="cMainGame.cpp" />
+    <ClCompile Include="cMatrix.cpp" />
+    <ClCompile Include="cVector3.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="API3D.h" />
+    <ClInclude Include="cMainGame.h" />
+    <ClInclude Include="cMatrix.h" />
+    <ClInclude Include="cVector3.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="API3D.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="API3D.rc" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BAE10E48-BECD-4083-BD8E-5E6A0760EC79}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -145,8 +167,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
