@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "cVector3.h"
-#include "cMatrix.h"
 
 #define EPSILON 0.0001f	/// : 사용 의미는 숙제 풀이할때 설명
 
@@ -110,9 +109,11 @@ cVector3 cVector3::Normalize()
 	return v;
 }
 // << :
+cVector3::cVector3(float _x, float _y, float _z)
+	: x(_x), y(_y), z(_z)
+{
+}
 
-
-// >> : 
 cVector3 cVector3::TransformCoord(cVector3 & v, cMatrix& mat)
 {
 	cVector3 vRet; 
@@ -141,5 +142,3 @@ cVector3 cVector3::TransformNormal(cVector3& v, cMatrix& mat)
 
 	return vRet; 
 }
-
-// << : 

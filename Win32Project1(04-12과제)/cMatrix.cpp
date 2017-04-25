@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "cMatrix.h"
-#include "cVector3.h"
 
 cMatrix::cMatrix()
 {
@@ -267,7 +266,68 @@ float cMatrix::Minor(int nRow, int nCol)
 
 	return matMinor.Determinant();
 }
-// >> :
+
+
+
+cMatrix cMatrix::Translation(float x, float y, float z)
+{
+	cMatrix mat = cMatrix::Identity(4);
+
+	mat[3][0] = x;
+	mat[3][1] = y;
+	mat[3][2] = z;
+
+	return mat;
+}
+
+cMatrix cMatrix::Translation(cVector3 & v)
+{
+	cMatrix mat = cMatrix::Identity(4);
+
+	mat[3][0] = v.x;
+	mat[3][1] = v.y;
+	mat[3][2] = v.z;
+
+	return mat;
+}
+
+cMatrix cMatrix::RotationX(float fAngle)
+{
+	cMatrix mat = cMatrix::Identity(4);
+
+	mat[1][1] = cosf(fAngle);
+	mat[1][2] = sinf(fAngle);
+	mat[2][1] = -sinf(fAngle);
+	mat[2][2] = cosf(fAngle);
+
+	return mat;
+}
+
+cMatrix cMatrix::RotationY(float fAngle)
+{
+	cMatrix mat = cMatrix::Identity(4);
+
+	mat[0][0] = cosf(fAngle);
+	mat[0][2] = -sinf(fAngle);
+	mat[2][0] = sinf(fAngle);
+	mat[2][2] = cosf(fAngle);
+
+	return mat;
+}
+
+cMatrix cMatrix::RotationZ(float fAngle)
+{
+	cMatrix mat = cMatrix::Identity(4);
+
+	mat[0][0] = cosf(fAngle);
+	mat[0][1] = sinf(fAngle);
+	mat[1][0] = -sinf(fAngle);
+	mat[1][1] = cosf(fAngle);
+
+	return mat;
+}
+
+
 cMatrix cMatrix::View(cVector3& vEye, cVector3& vLookAt, cVector3& vUp)
 {
 	cVector3 look = (vLookAt - vEye).Normalize(); 
@@ -275,37 +335,56 @@ cMatrix cMatrix::View(cVector3& vEye, cVector3& vLookAt, cVector3& vUp)
 	cVector3 up = cVector3::Cross(look, right).Normalize(); 
 
 	cMatrix matRet = cMatrix::Identity(4); 
-	/*
-			rx  ux  lx  0
-			ry  uy	ly	0
-			rz	uz  lz	0
-	*/
+	
+	matRet[0][0] = right.x;
+	matRet[1][0] = right.y;
+	matRet[2][0] = right.z;
+
+	matRet[0][1] = up.x;
+	matRet[1][1] = up.y;
+	matRet[2][1] = up.z;
+
+	matRet[0][2] = look.x;
+	matRet[1][2] = look.y;
+	matRet[2][2] = look.z;
 
 	matRet[3][0] = -cVector3::Dot(right, vEye); 
 	matRet[3][1] = -cVector3::Dot(up, vEye);
 	matRet[3][2] = -cVector3::Dot(look, vEye);
-}
-cMatrix cMatrix::Projection(float fFovY, float fAspect, float fNearZ, float fFarZ)
-{
-	cMatrix matRet = cMatrix::Identity(4); 
-	float fScaleY = 1.0f / tanf(fFovY / 2.0f);
-	float fScaleX = fScaleY / fAspect; 
-	/*
-			fscale x		0		0					0
-				0		fscaleY		0					0
-				0			0	far/(far-near)			0
-				0			0	- far*near/(far-near)	1
-	*/
-}
 
-cMatrix cMatrix::Viewport(float x, float y, float w, float h, float minz, float maxz)
-{
-	cMatrix matRet = cMatrix::Identity(4);
-	/*
-		:: to do 
-	*/
+	//matRet[3][3] = 0;
+
 	return matRet;
 }
 
+ cMatrix cMatrix::Projection(float fFovY, float fAspect, float fNearZ, float fFarZ)
+ {
+ 	cMatrix matRet = cMatrix::Identity(4); 
+ 	float fScaleY = 1.0f / tanf(fFovY / 2.0f);
+ 	float fScaleX = fScaleY / fAspect; 
 
-// << : 
+	matRet[0][0] = fScaleX;
+	matRet[1][1] = fScaleY;
+	matRet[2][2] = fFarZ / (fFarZ - fNearZ);
+	matRet[3][2] = -(fFarZ * fNearZ) / (fFarZ - fNearZ);
+	matRet[2][3] = 1;
+	matRet[3][3] = 0;
+
+	return matRet;
+ }
+ 
+ cMatrix cMatrix::Viewport(float x, float y, float w, float h, float minz, float maxz)
+ {
+ 	cMatrix matRet = cMatrix::Identity(4);
+ 
+	matRet[0][0] = w / 2;
+	matRet[3][0] = x + (w / 2);
+
+	matRet[1][1] = -h / 2;
+	matRet[3][1] = y + (h / 2);
+
+	matRet[2][2] = maxz - minz;
+	matRet[3][2] = minz;
+	
+ 	return matRet;
+ }

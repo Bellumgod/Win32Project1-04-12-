@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "API3D.h"
+#include "cMainGame.h"
 
 #define MAX_LOADSTRING 100
 
@@ -16,6 +17,14 @@ ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
+
+// >> :
+HWND		 g_hWnd;
+cMainGame*	 g_pMainGame = NULL;
+#define		 TIMER_ID		123
+
+// << :
+
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -40,6 +49,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_API3D));
 
+	{
+		g_pMainGame = new cMainGame;
+		g_pMainGame->Setup();
+		SetTimer(g_hWnd, TIMER_ID, 10, NULL);
+	}
+
     MSG msg;
 
     // 기본 메시지 루프입니다.
@@ -51,6 +66,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             DispatchMessage(&msg);
         }
     }
+
+	{
+		KillTimer(g_hWnd, TIMER_ID);
+		delete g_pMainGame;
+	}
 
     return (int) msg.wParam;
 }
@@ -105,6 +125,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
 
+   {
+	   g_hWnd = hWnd;
+   }
+
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
@@ -123,8 +147,21 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	{
+		if (g_pMainGame)
+		{
+			g_pMainGame->WndProc(hWnd, message, wParam, lParam);
+		}
+	}
+
     switch (message)
     {
+	case WM_TIMER:									// Timer를 처리하지 않으면 너무 빠르기 때문에 Timer를 설정해주기
+		if (g_pMainGame)
+			g_pMainGame->Update();
+		InvalidateRect(g_hWnd, NULL, false);
+		break;
+
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
@@ -147,6 +184,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다.
+			{
+				if (g_pMainGame != NULL)
+					g_pMainGame->Render(hdc);
+			}
+
             EndPaint(hWnd, &ps);
         }
         break;

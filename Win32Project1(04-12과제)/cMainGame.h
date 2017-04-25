@@ -1,7 +1,8 @@
 #pragma once
-
 #include "cVector3.h"
 #include "cMatrix.h"
+
+#define fBoxRotY 
 
 class cMainGame
 {
@@ -12,9 +13,9 @@ public:
 	HDC			m_MemDC;
 	HBITMAP		m_hOldBitmap, m_hBitmap;
 
-	std::vector<cVector3>	m_vecVertex;
-	std::vector<DWORD>		m_vecIndex;
-	std::vector<cVector3>	m_vecLineVertex;
+	vector<cVector3>	m_vecVertex;
+	vector<DWORD>		m_vecIndex;
+	vector<cVector3>	m_vecLineVertex;
 
 	cMatrix					m_matWorld;
 	cMatrix					m_matView;
@@ -35,6 +36,8 @@ public:
 	cVector3				m_vAxisZTextPosition;
 
 	float					m_fBoxRotY;
+	float					m_fBoxRotX;
+	float					m_fBoxRotZ;
 	cVector3				m_vBoxDirection;
 
 public:
@@ -42,6 +45,5 @@ public:
 	void Update();
 	void Render(HDC hdc);
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-
 };
 

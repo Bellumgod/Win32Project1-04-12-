@@ -13,55 +13,48 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\CPP">
+      <UniqueIdentifier>{a2c9a2c3-e395-4669-88de-8ee96fe3da7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\HEADER">
+      <UniqueIdentifier>{6405d0d4-7022-4839-a263-5c8f167a8b62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="API3D.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="cMainGame.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\CPP</Filter>
     </ClCompile>
     <ClCompile Include="cMatrix.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\CPP</Filter>
     </ClCompile>
     <ClCompile Include="cVector3.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\CPP</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="API3D.cpp">
+      <Filter>소스 파일\CPP</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="API3D.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cMainGame.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cMatrix.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="cVector3.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\HEADER</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\HEADER</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="API3D.ico">
-      <Filter>소스 파일</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="API3D.rc">
-      <Filter>소스 파일</Filter>
-    </ResourceCompile>
+    <ClInclude Include="Resource.h">
+      <Filter>소스 파일\HEADER</Filter>
+    </ClInclude>
+    <ClInclude Include="cVector3.h">
+      <Filter>소스 파일\HEADER</Filter>
+    </ClInclude>
+    <ClInclude Include="cMatrix.h">
+      <Filter>소스 파일\HEADER</Filter>
+    </ClInclude>
+    <ClInclude Include="cMainGame.h">
+      <Filter>소스 파일\HEADER</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

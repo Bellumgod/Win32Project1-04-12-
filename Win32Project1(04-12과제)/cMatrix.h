@@ -1,5 +1,8 @@
 #pragma once
-class cVector3; 
+#include "cVector3.h"
+
+class cVector3;
+
 class cMatrix
 {
 public:
@@ -58,7 +61,5 @@ public:
 	static cMatrix Projection(float fFovY, float fAspect, float fNearZ, float fFarZ); 
 	static cMatrix Viewport(float x, float y, float w, float h, float minz, float maxz); 
 	// << : 
-
-
 };
 

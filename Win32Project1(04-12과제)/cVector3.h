@@ -1,4 +1,8 @@
 #pragma once
+#include "cMatrix.h"
+
+class cMatrix;
+
 class cVector3
 {
 public:
